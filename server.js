@@ -13,6 +13,8 @@ app.use(express.json());
 
 app.use('/blog-posts', blogPostsRouter);
 
+app.use(express.static('public'));
+
 let server;
 
 function startServer() {
