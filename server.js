@@ -1,25 +1,17 @@
 //Set up express app
 const express = require('express');
 const morgan = require('express');
-const chaiHttp = require('chai-http');
 
 const app = express();
 
 const blogPostsRouter = require('./blogPostsRouter');
 
-app.use(chaiHttp);
 
 //Log http layer
 app.use(morgan('common'));
 app.use(express.json());
 
 app.use('/blog-posts', blogPostsRouter);
-
-app.use(chaiHttp);
-
-app.listen(process.env.PORT || 8080, () => {
-    console.log(`App listening on port ${process.env.PORT || 8080}`)
-})
 
 let server;
 
@@ -39,7 +31,7 @@ function startServer() {
 
 function stopServer() {
     return new Promise((resolve, reject) => {
-        console.log('Closing Server')
+        console.log('Closing Server');
         server.close(err => {
             if(err) {
                 reject(err);

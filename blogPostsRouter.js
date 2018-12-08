@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
             return res.status(400).send(message);
         }
     }
-    const item = BlogPost.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
+    const item = BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
     res.status(201).json(item);
 });
 

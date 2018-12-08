@@ -4,6 +4,7 @@
   "description": "Build a CRUD API for a blogging platform",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "mocha --exit"
   },
   "author": "Jack Surtees",
