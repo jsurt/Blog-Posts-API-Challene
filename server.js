@@ -40,7 +40,8 @@ app.get('/blog-posts/:id', (req, res) => {
 });
 
 app.post('/blog-posts', function(req, res) {
-    BlogPost.create({
+    BlogPost
+    .create({
         title: req.body.title,
         author: {
             firstName: req.body.firstName,
@@ -59,7 +60,8 @@ app.put('/blog-posts/:id', function(req, res) {
     if(req.params.id !== req.body.id) {
         res.status(404).send("error");
     }
-    BlogPost.findByIdAndUpdate(
+    BlogPost
+    .findByIdAndUpdate(
         req.params.id,
         {
         title: req.body.title,
@@ -69,14 +71,24 @@ app.put('/blog-posts/:id', function(req, res) {
         },
         content: req.body.content
     })
-
     .then(blogPost => res.status(200).json(blogPost.serialize()))
     .catch(err => {
         console.error(err);
         res.status(500).json({message: 'server error'});
     })
-})
+});
 
+app.delete('/blog-posts/:id', function(req, res) {
+    BlogPost
+        .findByIdAndRemove(req.params.id)
+        .then(() => {
+            res.status(204).json({message: 'success'})
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({message: 'Internal server error'});
+        })
+});
 
 let server;
 
