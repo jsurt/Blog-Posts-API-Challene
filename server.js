@@ -199,9 +199,38 @@ app.put('/blog-posts/:id', (req, res) => {
     if(req.params.id !== req.body.id) {
         const message = 'Request path id and body id must match';
         console.error(message);
-        res.send(message);
+        res.status(400).send(message);
     }
-})
+    const updated = {};
+    const updateableFields = ['title', 'content'];
+    updateableFields.forEach((field) => {
+        if (field in req.body) {
+            updated[field] = req.body[field]
+        }
+    BlogPost 
+        .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+        .then((updatedBlogPost) => {
+            res.status(200).json({
+                id: updatedBlogPost.id,
+                title: updatedBlogPost.title,
+                content: updatedBlogPost.content
+            })
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({message: err});
+        })
+    });
+
+});
+
+app.delete('/blog-posts/:id', (req, res) => {
+    BlogPost
+        .findByIdAndRemove(req.params.id)
+        .then(
+            res.status(204).json({message: 'Blog post has been deleted'}).end()
+        )
+});
 
 let server;
 
