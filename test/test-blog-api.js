@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-const {startServer, stopServer, app} = require('../server');
+const {runServer, closeServer, app} = require('../server');
 
 describe('Blog Posts', function() {
 
