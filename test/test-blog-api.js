@@ -9,11 +9,11 @@ const {startServer, stopServer, app} = require('../server');
 describe('Blog Posts', function() {
 
     before(function() {
-        return startServer();
+        return runServer();
     });
 
     after(function() {
-        return stopServer();
+        return closeServer();
     });
 
     it('should retrieve blog posts on GET', function() {
