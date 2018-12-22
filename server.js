@@ -272,4 +272,4 @@ if (require.main === module) {
   runServer(DATABASE_URL).catch(err => console.error(err));
 }
 
-module.exports = { runServer, app, closeServer };
+module.exports = { runServer, closeServer, app };
